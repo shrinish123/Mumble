@@ -36,7 +36,7 @@ For suggestions, I have already put up some issues,which you can work on.
 
 # Community Slack Channel
 
-To get started, the first step is to meet the community. We use slack to communicate, and there the helpful community will guide you. Slack is an instant messaging service used by developers and users of GitHub. It uses chatrooms, where developers can join in and can talk about a particular topic. <a href="Join me on Slack — it’s a faster, simpler way to work. Sign up here, from any device: https://join.slack.com/t/newworkspace-zrh7528/shared_invite/zt-jlc3y6cn-tqw0534L5Hc8WkEonKCjkA">Click Here</a> to join our Slack Workspace.
+To get started, the first step is to meet the community. We use slack to communicate, and there the helpful community will guide you. Slack is an instant messaging service used by developers and users of GitHub. It uses chatrooms, where developers can join in and can talk about a particular topic.<a href="https://join.slack.com/t/mumble-kwoc/shared_invite/zt-jlc3y6cn-tqw0534L5Hc8WkEonKCjkA">Click Here </a> to join our Slack Workspace.
 
 
 
