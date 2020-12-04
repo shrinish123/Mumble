@@ -30,7 +30,7 @@ Some extra additions are to improve the UI, and options to share emojis,pictures
    
 # Contribution
 
-Feel free to raise a issue or make a pull request to fix a bug or add a new feature. If you are new to open source you can first read about git by <a href="https://www.codecademy.com/learn/learn-git">clicking here</a> 
+Feel free to raise a issue or make a pull request to fix a bug or add a new feature. If you are new to open source you can first read about git by <a href="https://www.codecademy.com/learn/learn-git">Clicking here</a> 
 Also I have put up some good first issues for people new to development related to HTML, CSS. 
 For suggestions, I have already put up some issues,which you can work on.
 
