@@ -1,7 +1,47 @@
 # Mumble
 
-Mumble is a simple chatting app built using Node JS and Mustache Template Libraries. 
+Mumble is a chatting web app built using Node JS, socket.io and Mustache Template Libraries.
 
-   How to start working or contributing to it ?
+# About 
+
+Mumble currently has features to share your location ,make different rooms and chat with your friends.
+The current focus is to provide authentication and also store the chat messages using MongoDB and express.
+Some extra additions are to improve the UI, and options to share emojis,pictures,voice chats,videos.
+
+
+# Requirements
+
+* HTML CSS
+* Javascript
+* Node JS
+* Socket.io 
+* Express, MongoDB
+
+# Setting up the Project
+
+* Download and install Node JS
+* Download and install Git.
+* Fork the Repository.
+* Clone the repository to your local machine $ git clone https://github.com/<your-github-username>/Mumble.git
+* Change directory to tinder_swipebot $ cd  Mumble
+* To install the npm modules : $ npm install
+* To start running project on localhost , :$ npm run dev
+* Open localhost:3000 on your favorite browser
+   
+# Contribution
+
+Feel free to raise a issue or make a pull request to fix a bug or add a new feature. If you are new to open source you can first read about git by <a href="https://www.codecademy.com/learn/learn-git">clicking here</a> 
+Also I have put up some good first issues for people new to development related to HTML, CSS. 
+For suggestions, I have already put up some issues,which you can work on.
+
+# Community Slack Channel
+
+To get started, the first step is to meet the community. We use slack to communicate, and there the helpful community will guide you. Slack is an instant messaging service used by developers and users of GitHub. It uses chatrooms, where developers can join in and can talk about a particular topic. <a href="Join me on Slack — it’s a faster, simpler way to work. Sign up here, from any device: https://join.slack.com/t/newworkspace-zrh7528/shared_invite/zt-jlc3y6cn-tqw0534L5Hc8WkEonKCjkA">Click Here</a> to join our Slack Workspace.
+
+
+
+
+
+   
    
    
