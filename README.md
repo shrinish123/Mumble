@@ -23,7 +23,7 @@ Some extra additions are to improve the UI, and options to share emojis,pictures
 * Download and install Git.
 * Fork the Repository.
 * Clone the repository to your local machine $ git clone https://github.com/<your-github-username>/Mumble.git
-* Change directory to tinder_swipebot $ cd  Mumble
+* Change directory to Mumble $ cd  Mumble
 * To install the npm modules : $ npm install
 * To start running project on localhost , :$ npm run dev
 * Open localhost:3000 on your favorite browser
