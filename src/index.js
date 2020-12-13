@@ -1,7 +1,10 @@
 const path = require('path')
 const http = require('http')
 const express = require('express')
+const bodyParser = require("body-parser")
 const sockeio = require('socket.io')
+const mongoose = require("mongoose")
+const ejs = require("ejs")
 const {generateMessage,generateLocationMessage} =require('./utils/messages')
 const {addUser,removeUser,getUser,getUsersinRoom} =require('./utils/users')
 
@@ -13,16 +16,77 @@ const port = 3000;
 const publicDirpath = path.join(__dirname,'../public')
 
 app.use(express.static(publicDirpath))
+mongoose.connect("mongodb://localhost:27017/userDB", {useNewUrlParser: true , useUnifiedTopology: true});
+app.use(bodyParser.urlencoded({
+    extended: true
+  }))
+  
+app.set('view engine', 'ejs');
+const userSchema = ({
+  email: String,
+  password: String
+});
 
+const User = new mongoose.model("User", userSchema);
  
 
+app.get("/", function(req, res){
+    res.render("home");
+  });
+  
+  app.get("/login", function(req, res){
+    res.render("login");
+  });
+  
+  app.get("/register", function(req, res){
+    res.render("register");
+  });
+  app.get("/", function(req, res){
+    res.render("home");
+  });
+  
+  app.get("/login", function(req, res){
+    res.render("login");
+  });
+  
+  app.get("/register", function(req, res){
+    res.render("register");
+  });
 
+  app.post("/register", function(req, res){
+    const newUser =  new User({
+      email: req.body.username,
+      password: req.body.password
+    });
+    newUser.save(function(err){
+      if (err) {
+        console.log(err);
+      } else {
+        res.render("index");
+      }
+    });
+  });
+
+  app.post("/login", function(req, res){
+    const username = req.body.username;
+    const password = req.body.password;
+  
+    User.findOne({email: username}, function(err, foundUser){
+      if (err) {
+        console.log(err);
+      } else {
+        if (foundUser) {
+          if (foundUser.password === password) {
+            res.render("index");
+          }
+        }
+      }
+    });
+  });
+  app.get("/index",function(req,res){
 
 io.on('connection',(socket) =>{
     console.log('New websocket connection')
-
-    
-
     socket.on('join',({username,room},callback)=>{
 
         const {error,user}= addUser({id:socket.id,username,room})
@@ -78,6 +142,8 @@ io.on('connection',(socket) =>{
     })
     
 })
+  });
+
 
 
 
