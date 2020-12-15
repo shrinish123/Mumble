@@ -1,0 +1,139 @@
+/* General Styles */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+}
+
+input {
+  font-size: 18px;
+}
+
+/* body {
+    line-height: 1.4;
+    color: #333333;
+    font-family: Helvetica, Arial, sans-serif;
+  } */
+body {
+  perspective: 800px;
+  height: 100vh;
+  line-height: 1.4;
+  color: #333333;
+  margin: 0;
+  overflow: hidden;
+  font-family: Helvetica, Arial, sans-serif;
+  background: #ea5c54; /* Old browsers */
+  background: -moz-linear-gradient(
+    -45deg,
+    #ea5c54 0%,
+    #bb6dec 100%
+  ); /* FF3.6+ */
+  background: -webkit-gradient(
+    linear,
+    left top,
+    right bottom,
+    color-stop(0%, #ea5c54),
+    color-stop(100%, #bb6dec)
+  ); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(
+    -45deg,
+    #ea5c54 0%,
+    #bb6dec 100%
+  ); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(
+    -45deg,
+    #ea5c54 0%,
+    #bb6dec 100%
+  ); /* Opera 11.10+ */
+  background: -ms-linear-gradient(-45deg, #ea5c54 0%, #bb6dec 100%); /* IE10+ */
+  background: linear-gradient(135deg, #ea5c54 0%, #bb6dec 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#EA5C54 ', endColorstr='#bb6dec',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+}
+h1 {
+  margin-bottom: 16px;
+}
+
+label {
+  display: block;
+  font-size: 18px;
+  margin-bottom: 8px;
+  color: #777;
+}
+
+input {
+  border: 1px solid #555555;
+  padding: 10px 20px;
+  /* border: none; */
+  outline: none;
+  transition: width 1.5s ease-in-out;
+  width: 50%;
+  border-radius: 20px;
+  margin: 8px 0;
+
+  box-sizing: border-box;
+}
+input:focus {
+  width: 100%;
+}
+button {
+  cursor: pointer;
+  padding: 12px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  background: #7c5cbf;
+  border-radius: 5px;
+  color: white;
+  width: 80%;
+  font-size: 16px;
+  transition: background 0.3s ease;
+}
+
+button:hover {
+  background: white;
+  color: #7c5cbf;
+  border: 1px solid #7c5cbf;
+  box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24),
+    0 17px 50px 0 rgba(0, 0, 0, 0.19);
+}
+
+button:disabled {
+  cursor: default;
+  background: #7c5cbf94;
+}
+
+/* Join Page Styles */
+
+.centered-form {
+  /* background: #333744; */
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.border-bottom {
+  border-bottom: 1px solid #7c5cbf94;
+}
+.border-bottom-2 {
+  border-bottom: 5px solid #7c5cbf94;
+  width: 30%;
+}
+.centered-form__box {
+  box-shadow: 0px 0px 17px 1px #1d1f26;
+  background: #f7f7fa;
+  padding: 24px;
+  /* width: 250px; */
+}
+
+.centered-form button {
+  width: 100%;
+}
+
+.centered-form input {
+  margin-bottom: 16px;
+}
