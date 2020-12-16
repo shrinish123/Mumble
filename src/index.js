@@ -2,7 +2,7 @@ const path = require('path')
 const http = require('http')
 const express = require('express')
 const sockeio = require('socket.io')
-const {generateMessage,generateLocationMessage} =require('./utils/messages')
+const {generateMessage,generateLocationMessage,generateImageMessage} =require('./utils/messages')
 const {addUser,removeUser,getUser,getUsersinRoom} =require('./utils/users')
 
 const app = express();
@@ -14,14 +14,14 @@ const publicDirpath = path.join(__dirname,'../public')
 
 app.use(express.static(publicDirpath))
 
- 
+
 
 
 
 io.on('connection',(socket) =>{
     console.log('New websocket connection')
 
-    
+
 
     socket.on('join',({username,room},callback)=>{
 
@@ -36,7 +36,7 @@ io.on('connection',(socket) =>{
 
           socket.emit('message',generateMessage('Admin','Welcome'))
           socket.broadcast.to(user.room).emit('message',generateMessage('Admin',`${user.username} has joined`))
-            
+
           io.to(user.room).emit('roomData',{
               room:user.room,
               users:getUsersinRoom(user.room)
@@ -54,19 +54,24 @@ io.on('connection',(socket) =>{
 
     socket.on('sendLocation',(coords,callback)=>{
         const user = getUser(socket.id)
-        
+
         io.to(user.room).emit('sendLocation',generateLocationMessage(user.username,`https://google.com/maps?q=${coords.latitude},${coords.longitude}`));
         callback();
     })
 
+    socket.on('sendImage',function(image,callback){
+        const user= getUser(socket.id);
 
+        io.to(user.room).emit('sendImage',generateImageMessage(user.username,image));
+        callback();
+    })
 
     socket.on('disconnect', ()=>{
-           
+
         const user=removeUser(socket.id)
 
          if(user){
-            
+
           io.to(user.room).emit('message',generateMessage('Admin',`${user.username} has left the room`));
           io.to(user.room).emit('roomData',{
               room:user.room,
@@ -76,13 +81,12 @@ io.on('connection',(socket) =>{
 
 
     })
-    
+
 })
 
 
 
 server.listen(port,()=>{
-    console.log('Server is up on 3000')   
+    console.log('Server is up on 3000')
     ;
 })
-
