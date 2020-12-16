@@ -7,6 +7,9 @@ const socket =io();
 const $messageForm = document.querySelector('#message-form');
 const $messageFormInput = document.getElementById('message')
 const $messageFormButton = document.getElementById('submitBtn');
+const $imgbutton=document.getElementById('imgbutton');
+const $sendImage=document.getElementById('sendImage');
+
 const $locationBtn = document.querySelector('#location');
 const $messages =document.querySelector('#messages')
 
@@ -15,11 +18,13 @@ const $messages =document.querySelector('#messages')
 //Templates
 const messageTemplate = document.querySelector('#message-template').innerHTML;
 const locationTemplate = document.querySelector('#location-template').innerHTML;
+const imageTemplate = document.querySelector('#image-template').innerHTML;
 const sidebarTemplate = document.querySelector('#sidebar-template').innerHTML;
 
 
 //Options
 const {username,room}=Qs.parse(location.search,{ignoreQueryPrefix:true})
+
 
 const autoScroll =() =>{
 
@@ -44,10 +49,10 @@ const autoScroll =() =>{
         $messages.scrollTop = $messages.scrollHeight
     }
 
-} 
+}
 
      socket.on('message', (message)=>{
-        
+
          const html = Mustache.render(messageTemplate,{
              username:message.username,
              message:message.text,
@@ -68,14 +73,25 @@ const autoScroll =() =>{
         autoScroll()
     })
 
+    socket.on('sendImage',function(image){
+        const html = Mustache.render(imageTemplate,{
+            username:image.username,
+            imageURL:image.image,
+            createdAt: moment(image.createdAt).format('hh:mm A')
+        })
+        $messages.insertAdjacentHTML('beforeend',html);
+        autoScroll()
+    })
+
 socket.on('roomData',({room,users})=>{
-     
+
    const html =Mustache.render(sidebarTemplate,{
        room,
        users
    })
    document.querySelector("#sidebar").innerHTML = html;
 })
+
 
  $messageForm.addEventListener('submit',(e)=>{
 
@@ -120,7 +136,36 @@ $locationBtn.addEventListener('click',()=>{
         })
     })
 
-}) 
+})
+
+$imgbutton.addEventListener('click',()=>{
+  document.getElementById('sendImage').click();
+})
+
+$sendImage.addEventListener('change',function(){
+  if(this.files.length!=0){
+
+    var file=this.files[0];
+    const  fileType = file['type'];
+    const validImageTypes = ['image/gif', 'image/jpeg', 'image/png'];
+
+    reader=new FileReader()
+    if(!reader || !validImageTypes.includes(fileType) ){
+      this.value='';
+      return;
+    };
+
+    reader.onload=function(e){
+      this.value='';
+      const image=e.target.result;
+      socket.emit('sendImage',image,(image)=>{
+        console.log("image is delivered");
+      });
+    };
+
+    reader.readAsDataURL(file);
+  }
+})
 
 socket.emit('join',{username,room},(error)=>{
 
