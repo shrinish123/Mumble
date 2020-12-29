@@ -2,7 +2,7 @@ const path = require('path')
 const http = require('http')
 const express = require('express')
 const sockeio = require('socket.io')
-const {generateMessage,generateLocationMessage,generateImageMessage} =require('./utils/messages')
+const {generateMessage,generateLocationMessage,generateImageMessage,generateAudioMessage} =require('./utils/messages')
 const {addUser,removeUser,getUser,getUsersinRoom} =require('./utils/users')
 
 const app = express();
@@ -46,7 +46,7 @@ io.on('connection',(socket) =>{
     })
 
     socket.on('message',(message,callback)=>{
-          const user = getUser(socket.id)
+        const user = getUser(socket.id)
         io.to(user.room).emit('message',generateMessage(user.username,message));
         callback('Delivered');
     })
@@ -66,6 +66,13 @@ io.on('connection',(socket) =>{
         callback();
     })
 
+    socket.on('sendAudio',function(audio,callback){
+        const user= getUser(socket.id);
+
+        io.to(user.room).emit('sendAudio',generateAudioMessage(user.username,audio));
+        callback();
+    })
+
     socket.on('disconnect', ()=>{
 
         const user=removeUser(socket.id)
@@ -78,7 +85,6 @@ io.on('connection',(socket) =>{
               users:getUsersinRoom(user.room)
           })
          }
-
 
     })
 

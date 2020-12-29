@@ -27,6 +27,7 @@
         </form>
         <button id="imgbutton"/>Image</button>
         <input hidden id="sendImage" accept="image/x-png,image/gif,image/jpeg" type="file" value="image"/>
+        <button class="col2 recording" id="recording">Record</button>
         <button id='location'>Send Location</button>
       </div>
 
@@ -68,6 +69,17 @@
       </p>
 
       <p><a href="{{imageURL}}"target="_blank"><img src="{{imageURL}}" width="300" height="300" /></a></p>
+    </div>
+  </script>
+
+  <script id='audio-template' type="text/html">
+
+    <div class='message'>
+      <p>
+        <span class='message__name'>{{username}}</span>
+        <span class='message__meta'>{{createdAt}}</span>
+      </p>
+      <button name="audio" onclick="playAudio(this.value)" value="{{audioURL}}" type="button">Play Message</button>
     </div>
   </script>
 
