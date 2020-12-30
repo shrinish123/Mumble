@@ -9,16 +9,17 @@ const $messageFormInput = document.getElementById('message')
 const $messageFormButton = document.getElementById('submitBtn');
 const $imgbutton=document.getElementById('imgbutton');
 const $sendImage=document.getElementById('sendImage');
-
+const $recording=document.getElementById("recording");
+const $audio=document.getElementById("audio");
 const $locationBtn = document.querySelector('#location');
-const $messages =document.querySelector('#messages')
-
+const $messages =document.querySelector('#messages');
 
 
 //Templates
 const messageTemplate = document.querySelector('#message-template').innerHTML;
 const locationTemplate = document.querySelector('#location-template').innerHTML;
 const imageTemplate = document.querySelector('#image-template').innerHTML;
+const audioTemplate = document.querySelector('#audio-template').innerHTML;
 const sidebarTemplate = document.querySelector('#sidebar-template').innerHTML;
 
 
@@ -81,6 +82,16 @@ const autoScroll =() =>{
         })
         $messages.insertAdjacentHTML('beforeend',html);
         autoScroll()
+    })
+
+    socket.on('sendAudio',function(audioUrl){
+       const html = Mustache.render(audioTemplate,{
+           username:audioUrl.username,
+           audioURL:audioUrl.audio,
+           createdAt: moment(audioUrl.createdAt).format('hh:mm A')
+       })
+       $messages.insertAdjacentHTML('beforeend',html);
+       autoScroll()
     })
 
 socket.on('roomData',({room,users})=>{
@@ -166,6 +177,65 @@ $sendImage.addEventListener('change',function(){
     reader.readAsDataURL(file);
   }
 })
+
+$recording.addEventListener("pointerdown",async()=>{
+     recordedChunks = startRecording(stream)
+}, false);
+
+$recording.addEventListener("pointerup",async()=>{
+  recorder.state == "recording" && recorder.stop()
+   recordedChunks = await recordedChunks
+   recordedBlob = new Blob(recordedChunks, {type: 'audio/ogg; codecs="opus"'});
+   const audioUrl = URL.createObjectURL(recordedBlob);
+   var audioFile = new File([recordedBlob], "audio.ogg", {
+       type: 'audio/ogg; codecs="opus"',
+   });
+   reader=new FileReader()
+   reader.onload=function(e){
+     this.value='';
+     const audioFile=e.target.result;
+     socket.emit('sendAudio',audioFile,(audioFile)=>{
+       console.log("Audio is delivered");
+     });
+   };
+   reader.readAsDataURL(audioFile);
+})
+
+function playAudio(value) {
+  const audio = new Audio(value);
+  const play = () => {
+               audio.play();
+             };
+  audio.play();
+}
+
+function pauseAudio(value) {
+  const audio = new Audio(value);
+  const play = () => {
+               audio.pause();
+             };
+   audio.pause();
+}
+function startRecording(stream) {
+    recorder = new MediaRecorder(stream);
+    let data = [];
+    recorder.ondataavailable = event => data.push(event.data);
+    recorder.start();
+    let stopped = new Promise((resolve, reject) => {
+        recorder.onstop = resolve;
+        recorder.onerror = event => reject(event.name);
+    });
+
+    return stopped.then(() => data);
+}
+
+let stream
+( async () => {
+    stream = await navigator.mediaDevices.getUserMedia({
+         audio: true,
+         video: false
+    })
+})();
 
 socket.emit('join',{username,room},(error)=>{
 

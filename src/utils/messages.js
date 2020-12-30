@@ -22,8 +22,17 @@ const generateImageMessage = (username,image)=>{
   }
 }
 
+const generateAudioMessage = (username,audio)=>{
+  return{
+    username,
+    audio,
+    createdAt:new Date().getTime()
+  }
+}
+
 module.exports ={
     generateMessage,
     generateLocationMessage,
-    generateImageMessage
+    generateImageMessage,
+    generateAudioMessage
 }
