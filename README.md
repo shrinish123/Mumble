@@ -22,11 +22,23 @@ Some extra additions are to improve the UI, and options to share emojis,pictures
 * Download and install Node JS
 * Download and install Git.
 * Fork the Repository.
-* Clone the repository to your local machine $ git clone https://github.com/<your-github-username>/Mumble.git
-* Change directory to Mumble $ cd  Mumble
-* To install the npm modules : $ npm install
-* To start running project on localhost , :$ npm run dev
-* Open localhost:3000 on your favorite browser
+* Clone the repository to your local machine
+```bash
+ git clone https://github.com/<your-github-username>/Mumble.git
+```
+* Change directory to Mumble 
+ ```bash
+ cd  Mumble
+ ```
+* To install the npm modules : 
+ ```bash
+ npm install
+ ```
+* To start running project on localhost :
+```bash
+ npm run dev
+ ```
+* Open localhost:3000 on your favorite browser.
    
 # Contribution
 
